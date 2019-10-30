@@ -88,32 +88,37 @@ void make_csv(int headers_start, int data_start, int length_start, char **argv)
 
   while (j < length)
   {
-    char *current = argv[data_start + (j % range)];
+    int k = 0;
+    while (k < range)
+    {
+      char *current = argv[data_start + k];
 
-    if (strcmp(current, "date") == 0)
-    {
-      date = get_date();
-      fprintf(file, "%s", date);
-      free(date);
-    }
-    else if (strcmp(current, "string") == 0)
-    {
-      uuid = get_uuid();
-      fprintf(file, "%s", uuid);
-      free(uuid);
-    }
-    else
-    {
-      fprintf(file, "%d", j);
-    }
+      if (strcmp(current, "date") == 0)
+      {
+        date = get_date();
+        fprintf(file, "%s", date);
+        free(date);
+      }
+      else if (strcmp(current, "string") == 0)
+      {
+        uuid = get_uuid();
+        fprintf(file, "%s", uuid);
+        free(uuid);
+      }
+      else
+      {
+        fprintf(file, "%d", j);
+      }
 
-    if ((j + 1) % range == 0 && j != 0)
-    {
-      fprintf(file, "%c", '\n');
-    }
-    else
-    {
-      fprintf(file, "%c", ',');
+      if (k == (range - 1))
+      {
+        fprintf(file, "%c", '\n');
+      }
+      else
+      {
+        fprintf(file, "%c", ',');
+      }
+      k++;
     }
     j++;
   }
