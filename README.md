@@ -15,7 +15,7 @@ e.g: `clang make_csv.c -o make_csv -l uuid`
 ```
 
 ## Usage:
-`./make_csv -h foo bar -d string string -l 5`
+`./make_csv -h foo bar -d string number -l 5`
 
 outputs: `[hash].csv`
 
