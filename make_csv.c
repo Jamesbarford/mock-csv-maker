@@ -53,7 +53,7 @@ int main(int argc, char **argv)
 
 void make_csv(int headers_start, int data_start, int length_start, char **argv)
 {
-  printf("Writting file . . . \n");
+  printf("Writing  file . . . \n");
   // this is constant.
   const int length = atoi(argv[length_start]);
   const int range = calc_range(headers_start, data_start, length_start);
