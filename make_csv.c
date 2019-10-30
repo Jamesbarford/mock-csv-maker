@@ -3,7 +3,6 @@
 #include <string.h>
 #include <time.h>
 #include <uuid/uuid.h>
-#include <stdbool.h>
 
 const int DATE_BYTES = 80;
 const int UUID_BYTES = 37;
