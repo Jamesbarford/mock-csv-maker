@@ -4,8 +4,9 @@
 #include <time.h>
 #include <uuid/uuid.h>
 
-const int DATE_BYTES = 80;
-const int UUID_BYTES = 37;
+#define DATE_BYTES 80
+#define UUID_BYTES 37
+
 char *get_date();
 char *get_uuid();
 int calc_range(int headers_start, int data_start, int length_start);
@@ -17,7 +18,6 @@ int main(int argc, char **argv)
 
   time(&start);
 
-  int i;
   int arr[3];
 
   for (int i = 0; i < argc; i++)
@@ -57,6 +57,7 @@ void make_csv(int headers_start, int data_start, int length_start, char **argv)
   // this is constant.
   const int length = atoi(argv[length_start]);
   const int range = calc_range(headers_start, data_start, length_start);
+  int i, j, k;
   char src[50], dest[50];
   char *uuid, *filename, *date;
 
@@ -67,12 +68,12 @@ void make_csv(int headers_start, int data_start, int length_start, char **argv)
   strcpy(dest, ".csv");
   filename = strcat(src, dest);
 
-  int i = 0, j = 0;
+  i = j = k = 0;
 
   FILE *file;
   file = fopen(filename, "w+");
 
-  while (i < range)
+  for (; i < range; ++i)
   {
     if (i == (range - 1))
     {
@@ -83,12 +84,12 @@ void make_csv(int headers_start, int data_start, int length_start, char **argv)
     {
       fprintf(file, "%s,", argv[headers_start + i]);
     }
-    i++;
   }
 
-  while (j < length)
+  while ((++j) <= length)
   {
-    int k = 0;
+    // reset k for each row
+    k = 0;
     while (k < range)
     {
       char *current = argv[data_start + k];
@@ -118,9 +119,8 @@ void make_csv(int headers_start, int data_start, int length_start, char **argv)
       {
         fprintf(file, "%c", ',');
       }
-      k++;
+      ++k;
     }
-    j++;
   }
 
   fclose(file);
