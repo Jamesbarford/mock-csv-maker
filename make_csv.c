@@ -20,20 +20,14 @@ int main(int argc, char **argv)
 
   int arr[3];
 
-  for (int i = 0; i < argc; i++)
+  for (int i = 0; i < argc; ++i)
   {
     if (strncmp(argv[i], "-h", 2) == 0)
-    {
       arr[0] = i + 1;
-    }
     else if (strncmp(argv[i], "-d", 2) == 0)
-    {
       arr[1] = i + 1;
-    }
     else if (strncmp(argv[i], "-l", 2) == 0)
-    {
       arr[2] = i + 1;
-    }
   }
 
   if (arr[0] == 0 || arr[1] == 0 || arr[2] == 0)
@@ -81,9 +75,7 @@ void make_csv(int headers_start, int data_start, int length_start, char **argv)
       break;
     }
     else
-    {
       fprintf(file, "%s,", argv[headers_start + i]);
-    }
   }
 
   while ((++j) <= length)
@@ -112,13 +104,9 @@ void make_csv(int headers_start, int data_start, int length_start, char **argv)
       }
 
       if (k == (range - 1))
-      {
         fprintf(file, "%c", '\n');
-      }
       else
-      {
         fprintf(file, "%c", ',');
-      }
       ++k;
     }
   }
@@ -132,24 +120,16 @@ int calc_range(int headers_start, int data_start, int length_start)
 
   // -l -d -h
   if (headers_start > data_start && headers_start > length_start && length_start < data_start)
-  {
     range = (headers_start - data_start) - 1;
-  }
   // -l -h -d
   else if (headers_start < data_start && headers_start > length_start)
-  {
     range = (data_start - headers_start) - 1;
-  }
   // -h -d -l
   else if (headers_start < data_start && data_start < length_start)
-  {
     range = (data_start - headers_start) - 1;
-  }
   // -d -l -h
   else
-  {
     range = (headers_start - data_start) - 1;
-  }
 
   return range;
 }
